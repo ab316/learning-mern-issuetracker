@@ -60,7 +60,7 @@ function addIssue(_, { issue }) {
 function validateIssue(issue) {
     const errors = [];
     if (issue.title.length < 3) {
-        errors.push('Field "title" must be alteast 3 characters long');
+        errors.push('Field "title" must be at least 3 characters long');
     }
 
     if (issue.status == 'Assigned' && !issue.owner) {
