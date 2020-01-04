@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "babel src --out-dir public",
-    "start": "nodemon -w server server/server.js",
+    "start": "nodemon -w server server/server.js -e js,graphql",
     "watch": "babel src --out-dir public --watch --verbose"
   },
   "author": "",
