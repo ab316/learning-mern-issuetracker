@@ -1,7 +1,20 @@
 type Query {
     about: String!
+    issues: [Issue!]!
 }
 
 type Mutation {
     setAboutMessage(message: String!): String
 }
+
+type Issue {
+    id: Int!
+    status: String!
+    owner: String!
+    effort: Int!
+    created: GraphQLDate!
+    title: String!
+    due: GraphQLDate
+}
+
+scalar GraphQLDate
