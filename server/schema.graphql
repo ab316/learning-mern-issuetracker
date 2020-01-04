@@ -5,15 +5,26 @@ type Query {
 
 type Mutation {
     setAboutMessage(message: String!): String
+    addIssue(issue: IssueInput!): Issue!
 }
 
 type Issue {
     id: Int!
-    status: String!
-    owner: String!
-    effort: Int!
     created: GraphQLDate!
     title: String!
+    status: String
+    owner: String
+    effort: Int
+    due: GraphQLDate
+}
+
+"Toned down Issue, used as input, without server generated values"
+input IssueInput {
+    title: String!
+    owner: String
+    effort: Int
+    "Optional, if not supplied, will be set to 'New'"
+    status: String
     due: GraphQLDate
 }
 
