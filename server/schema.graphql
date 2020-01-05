@@ -9,6 +9,7 @@ type Mutation {
 }
 
 type Issue {
+    _id: ID!
     id: Int!
     created: GraphQLDate!
     title: String!

@@ -1,16 +1,21 @@
 const fs = require('fs');
 const express = require('express');
 const app = express();
+
+// DB
+const { MongoClient } = require('mongodb');
+let db;
+
+// GraphQL
 const { ApolloServer, UserInputError } = require('apollo-server-express');
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
 
+const dbUrl = 'mongodb://localhost/issuetracker';
+
 
 let aboutMessage = "Issue Tracker API v1.0"
-const issuesDb = [
-    { id: 1, status: 'New', owner: 'Abdullah', effort: 5, created: new Date('2020-01-04'), due: undefined, title: 'Error in console when clicking Add' },
-    { id: 2, status: 'Assigned', owner: 'Asad', effort: 14, created: new Date('2019-11-12'), due: new Date('2020-01-01'), title: 'Missing bottom border on panel' }
-];
+
 
 const GraphQLDate = new GraphQLScalarType({
     name: 'GraphQLDate',
@@ -34,7 +39,7 @@ const GraphQLDate = new GraphQLScalarType({
 const resolvers = {
     Query: {
         about: () => aboutMessage,
-        issues: () => issuesDb
+        issues: issuesList
     },
     Mutation: {
         setAboutMessage,
@@ -46,15 +51,6 @@ const resolvers = {
 
 function setAboutMessage(_, { message }) {
     return aboutMessage = message;
-}
-
-function addIssue(_, { issue }) {
-    validateIssue(issue);
-    issue.created = new Date();
-    issue.id = issuesDb.length + 1;
-    issuesDb.push(issue);
-
-    return issue;
 }
 
 function validateIssue(issue) {
@@ -72,6 +68,38 @@ function validateIssue(issue) {
     }
 }
 
+async function connectToDb() {
+    const client = new MongoClient(dbUrl, { useUnifiedTopology: true });
+    await client.connect();
+    console.log('Connected to MongoDB at', dbUrl);
+    db = client.db();
+}
+
+async function getNextSequence(name) {
+    const result = await db.collection('counters').findOneAndUpdate(
+        { _id: name },
+        { $inc: { current: 1 } },
+        { returnOriginal: false }
+    );
+    return result.value.current;
+}
+
+async function issuesList() {
+    const issues = await db.collection('issues').find({}).toArray();
+    return issues;
+}
+
+async function addIssue(_, { issue }) {
+    validateIssue(issue);
+    issue.created = new Date();
+    
+    issue.id = await getNextSequence('issues');
+    const result = await db.collection('issues').insertOne(issue);
+    const savedIssue = await db.collection('issues').findOne({ _id: result.insertedId });
+
+    return savedIssue;
+}
+
 
 const server = new ApolloServer({
     typeDefs: fs.readFileSync('./server/schema.graphql', 'utf-8'),
@@ -85,4 +113,11 @@ const server = new ApolloServer({
 app.use('/', express.static('public'));
 server.applyMiddleware({ app, path: '/graphql' });
 
-app.listen(3000, () => console.log('App started on port 3000'));
+(async function () {
+    try {
+        await connectToDb();
+        app.listen(3000, () => console.log('App started on port 3000'));
+    } catch (err) {
+        console.log('ERROR:', err);
+    }
+})();
