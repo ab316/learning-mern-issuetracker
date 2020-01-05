@@ -1,7 +1,7 @@
 require('dotenv').config();
-
 const express = require('express');
 const proxy = require('http-proxy-middleware');
+
 const app = express();
 
 const port = process.env.UI_SERVER_PORT || 8000;
@@ -15,7 +15,7 @@ const env = { UI_API_ENDPOINT };
 // explicit call in the code
 app.get('/env.js', (req, res) => {
     res.send(`window.ENV = ${JSON.stringify(env)}`);
-})
+});
 
 app.use(express.static('public'));
 
