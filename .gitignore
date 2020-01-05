@@ -103,4 +103,4 @@ dist
 # TernJS port file
 .tern-port
 
-ui/public/*.js
+ui/public/app.bundle.js
