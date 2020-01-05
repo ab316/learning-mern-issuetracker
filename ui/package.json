@@ -1,21 +1,17 @@
 {
-  "name": "issue-tracker",
+  "name": "issue-tracker-ui",
   "version": "1.0.0",
-  "description": "Issue Tracker",
+  "description": "Issue Tracker UI",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "babel src --out-dir public",
-    "start": "nodemon -w server server/server.js -e js,graphql",
+    "start": "nodemon -w uiserver.js uiserver.js",
     "watch": "babel src --out-dir public --watch --verbose"
   },
-  "author": "",
+  "author": "abdullahbaig456@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^2.9.15",
     "express": "^4.17.1",
-    "graphql": "^14.5.8",
-    "mongodb": "^3.4.1",
     "nodemon": "^2.0.2"
   },
   "devDependencies": {

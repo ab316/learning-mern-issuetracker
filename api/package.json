@@ -1,0 +1,19 @@
+{
+  "name": "issue-tracker-api",
+  "version": "1.0.0",
+  "description": "Issue Tracker API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -e js,graphql server.js"
+  },
+  "author": "abdullahbaig456@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-express": "^2.9.15",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "mongodb": "^3.4.1",
+    "nodemon": "^2.0.2"
+  }
+}
