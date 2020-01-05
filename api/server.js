@@ -14,6 +14,7 @@ const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
 
 const port = process.env.API_SERVER_PORT || 3000;
+const enableCors = (process.env.ENABLE_CORS || 'true') == 'true';
 const schemaPath = './schema.graphql';
 const dbUrl = process.env.DB_URL || 'mongodb://localhost/issuetracker';
 
@@ -114,7 +115,8 @@ const server = new ApolloServer({
     }
 });
 
-server.applyMiddleware({ app, path: '/graphql' });
+console.log('CORS Setting:', enableCors);
+server.applyMiddleware({ app, path: '/graphql', cors: enableCors });
 
 (async function () {
     try {
