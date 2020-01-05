@@ -11,6 +11,7 @@ const { ApolloServer, UserInputError } = require('apollo-server-express');
 const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
 
+const schemaPath = './schema.graphql';
 const dbUrl = 'mongodb://localhost/issuetracker';
 
 
@@ -102,7 +103,7 @@ async function addIssue(_, { issue }) {
 
 
 const server = new ApolloServer({
-    typeDefs: fs.readFileSync('./server/schema.graphql', 'utf-8'),
+    typeDefs: fs.readFileSync(schemaPath, 'utf-8'),
     resolvers,
     formatError: error => {
         console.log(error);
@@ -110,13 +111,12 @@ const server = new ApolloServer({
     }
 });
 
-app.use('/', express.static('public'));
 server.applyMiddleware({ app, path: '/graphql' });
 
 (async function () {
     try {
         await connectToDb();
-        app.listen(3000, () => console.log('App started on port 3000'));
+        app.listen(3000, () => console.log('API started on port 3000'));
     } catch (err) {
         console.log('ERROR:', err);
     }
