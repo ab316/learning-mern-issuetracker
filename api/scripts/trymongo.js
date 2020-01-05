@@ -1,6 +1,8 @@
-const { MongoClient } = require('mongodb');
-const client = new MongoClient('mongodb://localhost/issuetracker', { useUnifiedTopology: true });
+/* eslint no-console: "off" */
 
+const { MongoClient } = require('mongodb');
+
+const client = new MongoClient('mongodb://localhost/issuetracker', { useUnifiedTopology: true });
 
 async function testWithAsync() {
     try {
@@ -11,7 +13,7 @@ async function testWithAsync() {
         const employee = {
             id: 1,
             name: 'A. Callback',
-            age: 23
+            age: 23,
         };
 
         const result = await collection.insertOne(employee);

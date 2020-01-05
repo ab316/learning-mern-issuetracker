@@ -1,8 +1,27 @@
+/* global db print */
+/* eslint no-restricted-globals: "off" */
+
 db.issues.remove({});
 
 const issueDb = [
-    { id: 1, status: 'New', owner: 'Abdullah', effort: 5, created: new Date('2020-01-04'), due: undefined, title: 'Error in console when clicking Add' },
-    { id: 2, status: 'Assigned', owner: 'Asad', effort: 14, created: new Date('2019-11-12'), due: new Date('2020-01-01'), title: 'Missing bottom border on panel' }
+    {
+        id: 1,
+        status: 'New',
+        owner: 'Abdullah',
+        effort: 5,
+        created: new Date('2020-01-04'),
+        due: undefined,
+        title: 'Error in console when clicking Add',
+    },
+    {
+        id: 2,
+        status: 'Assigned',
+        owner: 'Asad',
+        effort: 14,
+        created: new Date('2019-11-12'),
+        due: new Date('2020-01-01'),
+        title: 'Missing bottom border on panel',
+    },
 ];
 
 db.issues.insertMany(issueDb);
