@@ -1,4 +1,4 @@
-/* globals React ReactDOM */
+/* globals React ReactDOM PropTypes */
 /* eslint max-classes-per-file: "off" */
 /* eslint react/react-in-jsx-scope: "off" */
 /* eslint react/jsx-no-undef: "off" */
@@ -123,6 +123,11 @@ class IssueAdd extends React.Component {
         );
     }
 }
+
+IssueAdd.propTypes = {
+    createIssue: PropTypes.func.isRequired,
+};
+
 
 /* eslint-disable-next-line react/prefer-stateless-function */
 class IssueFilter extends React.Component {
