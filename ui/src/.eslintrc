@@ -4,6 +4,7 @@
         "browser": true
     },
     "rules": {
-        "indent": ["warn", 4]
+        "indent": ["warn", 4],
+        "import/extensions": ["error", "ignorePackages"]
     }
 }
