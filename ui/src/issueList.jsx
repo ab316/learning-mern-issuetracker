@@ -1,4 +1,4 @@
-/* globals React */
+import React from 'react';
 
 import graphQLFetch from './graphqlFetch.js';
 import IssueFilter from './issueFilter.jsx';
