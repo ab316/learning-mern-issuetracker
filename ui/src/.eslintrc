@@ -5,6 +5,8 @@
     },
     "rules": {
         "indent": ["warn", 4],
-        "import/extensions": ["error", "ignorePackages"]
+        "import/extensions": ["error", "ignorePackages"],
+        "react/jsx-indent": ["warn", 4],
+        "react/prop-types": "off"
     }
 }

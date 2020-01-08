@@ -4,8 +4,6 @@
         "node": true
     },
     "rules": {
-        "indent": ["warn", 4],
-        "react/jsx-indent": ["warn", 4],
-        "react/prop-types": "off"
+        "indent": ["warn", 4]
     }
 }
