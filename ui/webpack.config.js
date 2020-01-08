@@ -2,9 +2,11 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/app.jsx',
+    entry: {
+        app: './src/app.jsx',
+    },
     output: {
-        filename: 'app.bundle.js',
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'public'),
     },
     module: {
@@ -12,7 +14,14 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 use: 'babel-loader',
+                exclude: /node_modules/,
             },
         ],
+    },
+    optimization: {
+        splitChunks: {
+            name: 'vendor',
+            chunks: 'all',
+        },
     },
 };
