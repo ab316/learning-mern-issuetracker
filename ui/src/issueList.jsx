@@ -1,3 +1,5 @@
+import URLSearchParams from 'url-search-params';
+
 import React from 'react';
 
 import graphQLFetch from './graphqlFetch.js';
@@ -17,14 +19,28 @@ export default class IssueList extends React.Component {
         this.loadData();
     }
 
+    componentDidUpdate(prevProps) {
+        const { location: { search: prevSearch } } = prevProps;
+        const { location: { search } } = this.props;
+        if (prevSearch !== search) {
+            this.loadData();
+        }
+    }
+
     async loadData() {
-        const query = `query {
-            issues {
+        const query = `query issues($status: StatusType) {
+            issues(status: $status) {
                 _id id title status owner effort created due
             }
         }`;
 
-        const data = await graphQLFetch(query);
+        const { location: { search } } = this.props;
+        const params = new URLSearchParams(search);
+        const vars = {};
+
+        if (params.get('status')) vars.status = params.get('status');
+
+        const data = await graphQLFetch(query, vars);
         if (data) {
             this.setState({ issues: data.issues });
         }
