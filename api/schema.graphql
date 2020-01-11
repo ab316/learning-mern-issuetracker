@@ -1,6 +1,7 @@
 type Query {
     about: String!
     issues(status: StatusType): [Issue!]!
+    issue(id: Int!): Issue!
 }
 
 type Mutation {
@@ -17,6 +18,7 @@ type Issue {
     owner: String
     effort: Int
     due: GraphQLDate
+    description: String
 }
 
 "Toned down Issue, used as input, without server generated values"
@@ -27,6 +29,7 @@ input IssueInput {
     "Optional, if not supplied, will be set to 'New'"
     status: StatusType = New
     due: GraphQLDate
+    description: String
 }
 
 scalar GraphQLDate

@@ -1,11 +1,13 @@
 import URLSearchParams from 'url-search-params';
 
 import React from 'react';
+import { Route } from 'react-router-dom';
 
 import graphQLFetch from './graphqlFetch.js';
 import IssueFilter from './issueFilter.jsx';
 import IssueTable from './issueTable.jsx';
 import IssueAdd from './issueAdd.jsx';
+import IssueDetail from './issueDetail.jsx';
 
 
 export default class IssueList extends React.Component {
@@ -61,6 +63,7 @@ export default class IssueList extends React.Component {
 
     render() {
         const { issues } = this.state;
+        const { match } = this.props;
         return (
             <>
                 <h1>Issue Tracker</h1>
@@ -69,6 +72,8 @@ export default class IssueList extends React.Component {
                 <IssueTable issues={issues} />
                 <hr />
                 <IssueAdd createIssue={this.createIssue} />
+                <hr />
+                <Route path={`${match.path}/:id`} component={IssueDetail} />
             </>
         );
     }

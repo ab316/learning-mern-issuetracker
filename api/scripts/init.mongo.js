@@ -12,6 +12,8 @@ const issueDb = [
         created: new Date('2020-01-04'),
         due: undefined,
         title: 'Error in console when clicking Add',
+        description: 'There is an error in the development console when the Add button is clicked'
+            + '\nThe error might be exposing sensitive information about the application',
     },
     {
         id: 2,
@@ -21,6 +23,7 @@ const issueDb = [
         created: new Date('2019-11-12'),
         due: new Date('2020-01-01'),
         title: 'Missing bottom border on panel',
+        description: 'There needs to be a border in the bottom in the panel',
     },
 ];
 
